@@ -70,6 +70,21 @@ function handleAddToCart(item) {
   });
 }
 
+  // Increase quantity
+  function handleIncrease(id) {
+    const updatecart = cartItems.map(items => 
+      items.id === id ? { ...items, quantity: items.quantity + 1} : items 
+    );
+    setCartItems(updatecart)
+  };
+
+  // Decrease quantity
+  const handleDecrease = (id) => {
+    const updatedCart = cartItems.map(item =>
+      item.id === id ? { ...item, quantity: item.quantity > 1 ? item.quantity - 1 : 1 } : item
+    );
+    setCartItems(updatedCart);
+  };
 
 //  buynow
 
@@ -170,7 +185,7 @@ function buynow(params) {
                 {/* Price Section */}
                 <div className="mt-4 p-4 bg-gray-50 rounded">
                   <div className="flex items-end">
-                    <span className="text-3xl font-bold text-orange-500">${data.price}</span>
+                    <span className="text-3xl font-bold text-orange-500">${(data.price).toFixed(2)}</span>
                     <span className="text-lg text-gray-500 ml-2 line-through">${(data.price / (1 - (data.discountPercentage / 100))).toFixed(2)}</span>
                     <span className="text-sm bg-orange-100 text-orange-600 px-2 py-1 rounded ml-2">{data.discountPercentage}% OFF</span>
                   </div>
@@ -180,12 +195,12 @@ function buynow(params) {
                 </div>
 
                 {/* Quantity Selector */}
-                <div className="mt-6">
+                {/* <div className="mt-6">
                   <label className="block text-sm font-medium text-gray-700 mb-1">Quantity:</label>
                   <div className="flex items-center">
                     <button 
                       className="w-10 h-10 border border-gray-300 rounded-l bg-gray-100 text-xl flex items-center justify-center"
-                      onClick={decreaseQuantity}
+                      onClick={()=> decreaseQuantity(data.id)}
                     >
                       -
                     </button>
@@ -194,13 +209,13 @@ function buynow(params) {
                     </div>
                     <button 
                       className="w-10 h-10 border border-gray-300 rounded-r bg-gray-100 text-xl flex items-center justify-center"
-                      onClick={increaseQuantity}
+                      onClick={()=> increaseQuantity(data.id)}
                     >
                       +
                     </button>
                     <span className="text-sm text-gray-500 ml-2">({data.stock} available)</span>
                   </div>
-                </div>
+                </div> */}
 
                 {/* Action Buttons */}
                 <div className="mt-6 flex gap-3">

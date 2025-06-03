@@ -9,14 +9,15 @@ import { Autoplay } from 'swiper/modules';
 
 function Slider() {
   return (
-    <div style={{ width: "100%", padding: "0", margin: "0" , marginTop:"0%" }}> {/* ✅ Full Width */}
+    <div style={{ width: "100%", padding: "0", margin: "0" , marginTop:"0%" }}> 
       <Swiper
         modules={[Autoplay]}
         spaceBetween={0}
         slidesPerView={1}
         loop={true}
         autoplay={{ delay: 2000, disableOnInteraction: false }}
-        style={{ width: "100%", height: "400px" }} // ✅ Optional: set height
+        // style={{ width: "100%", height: "400px" }} 
+         className="w-full"
       >
         <SwiperSlide>
           <img

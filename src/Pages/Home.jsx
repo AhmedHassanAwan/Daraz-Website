@@ -75,7 +75,7 @@ function handleAddToCart(item) {
     
   return (
     <>
-    <Slider className="sm:w-full object-cover"/>
+    <Slider /><br />
 
 
 

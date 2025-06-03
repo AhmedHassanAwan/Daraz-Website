@@ -275,7 +275,7 @@ function Footer() {
               <Link to="/filter" className="text-gray-600 dark:text-gray-300 hover:text-blue-500 hover:underline text-sm">Products</Link>
               <Link to="/login" className="text-gray-600 dark:text-gray-300 hover:text-blue-500 hover:underline text-sm">Login</Link>
               <Link to="/contact" className="text-gray-600 dark:text-gray-300 hover:text-blue-500 hover:underline text-sm">Contact</Link>
-              <Link to="/faq" className="text-gray-600 dark:text-gray-300 hover:text-blue-500 hover:underline text-sm">FAQ</Link>
+             
             </div>
           </div>
 
