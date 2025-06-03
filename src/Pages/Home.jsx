@@ -75,7 +75,7 @@ function handleAddToCart(item) {
     
   return (
     <>
-    <Slider /><br />
+    <Slider />
 
 
 
