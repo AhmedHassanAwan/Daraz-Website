@@ -88,7 +88,7 @@ function handleAddToCart(item) {
 
 //  buynow
 
-function buynow(params) {
+function buynow() {
   console.log("hellwo ");
 
   navigate("/checkout")

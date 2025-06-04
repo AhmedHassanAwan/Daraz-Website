@@ -2,16 +2,36 @@
 
 
 
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { ProductsContext } from '../../Context/Context'
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from '../../Config.js';
+
+
 
 const Myswal =    withReactContent(Swal)
 function Checkout() {
   const { cartItems, setCartItems } = useContext(ProductsContext)
   const navigate = useNavigate()
+
+
+
+  useEffect(()=>{
+
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    const uid = user.uid;
+    console.log(uid);
+    
+  } else {
+    navigate('/login');
+  }
+});
+
+  },[])
 
   // price calculations
   const subtotal = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);

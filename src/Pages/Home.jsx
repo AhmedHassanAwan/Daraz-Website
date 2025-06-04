@@ -75,24 +75,16 @@ function handleAddToCart(item) {
     
   return (
     <>
-    <Slider />
+    <Slider /><br />
 
 
 
 <img 
   className="w-full h-48 sm:h-40 md:h-80 lg:h-55 mb-4" 
-  src="https://img.lazcdn.com/us/domino/8ce09cac-5cf7-41d0-b557-f36e6ede5901_PK-1053-210.gif" 
-/>
+  src="https://img.lazcdn.com/us/domino/8ce09cac-5cf7-41d0-b557-f36e6ede5901_PK-1053-210.gif"/>
+  <br />
+  <h1 className='text-gray-600 text-2xl ml-6 mt-1 line-clamp-2'  >Flash Sale</h1>
 
-
-
-{/* <img  style={{marginTop:0}}
-  className="w-full h-48 sm:h-40  sm:w-full  md:h-80 lg:h-55 mt-2 mb-4" 
-  src="https://img.lazcdn.com/us/domino/8ce09cac-5cf7-41d0-b557-f36e6ede5901_PK-1053-210.gif" 
-  alt="" 
-/> */}
-
-{/* <img className='w-full h-48 sm:h-40 md:h-80 lg:h-55   '   src="https://img.lazcdn.com/us/domino/8ce09cac-5cf7-41d0-b557-f36e6ede5901_PK-1053-210.gif" alt="" /> */}
 
 
 

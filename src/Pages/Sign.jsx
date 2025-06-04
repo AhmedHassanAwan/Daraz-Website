@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { FaUser, FaEnvelope, FaLock, FaPhone, FaMapMarkerAlt } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
+import {  createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from '../../Config.js';
+
 
 function Sign() {
   const [formData, setFormData] = useState({
@@ -11,23 +14,52 @@ function Sign() {
     confirmPassword: '',
     address: ''
   });
-  const [acceptTerms, setAcceptTerms] = useState(false);
+
+  const [email , setemail]  = useState("")
+  const [password , setpassward] = useState("")
 
   const navigate = useNavigate()
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
-  };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Handle registration logic here
-    console.log({ ...formData, acceptTerms });
-  };
+  function signup() {
+    console.log(email);
+    console.log(password);
+
+    createUserWithEmailAndPassword(auth, email, password)
+  .then((userCredential) => {
+    // Signed up 
+    const user = userCredential.user;
+    console.log(user);
+navigate('/Login')
+    alert("Sign UP sucessfull")
+    
+    // ...
+  })
+  .catch((error) => {
+    const errorMessage = error.message;
+    console.log(errorMessage);
+    alert(errorMessage)
+    
+  });
+
+    
+    
+    
+  }
+
+  // const handleChange = (e) => {
+  //   const { name, value } = e.target;
+  //   setFormData(prev => ({
+  //     ...prev,
+  //     [name]: value
+  //   }));
+  // };
+
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   // Handle registration logic here
+  //   console.log({ ...formData, acceptTerms });
+  // };
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
@@ -47,7 +79,7 @@ function Sign() {
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
         <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
-          <form className="space-y-4" onSubmit={handleSubmit}>
+          <form className="space-y-4" >
             <div>
               <label htmlFor="name" className="block text-sm font-medium text-gray-700">
                 Full Name
@@ -61,8 +93,8 @@ function Sign() {
                   name="name"
                   type="text"
                   required
-                  value={formData.name}
-                  onChange={handleChange}
+                  // value={formData.name}
+                  // onChange={handleChange}
                   className="py-3 pl-10 block w-full border border-gray-300 rounded-md focus:outline-none focus:ring-orange-500 focus:border-orange-500"
                   placeholder="Enter your full name"
                 />
@@ -78,13 +110,13 @@ function Sign() {
                   <FaEnvelope className="h-5 w-5 text-gray-400" />
                 </div>
                 <input
+                
                   id="email"
                   name="email"
                   type="email"
                   autoComplete="email"
                   required
-                  value={formData.email}
-                  onChange={handleChange}
+                  onChange={(e)=> setemail(e.target.value) }
                   className="py-3 pl-10 block w-full border border-gray-300 rounded-md focus:outline-none focus:ring-orange-500 focus:border-orange-500"
                   placeholder="Enter your email"
                 />
@@ -104,8 +136,8 @@ function Sign() {
                   name="phone"
                   type="tel"
                   required
-                  value={formData.phone}
-                  onChange={handleChange}
+                  // value={formData.phone}
+                  // onChange={handleChange}
                   className="py-3 pl-10 block w-full border border-gray-300 rounded-md focus:outline-none focus:ring-orange-500 focus:border-orange-500"
                   placeholder="Enter your phone number"
                 />
@@ -126,8 +158,8 @@ function Sign() {
                   type="password"
                   required
                   minLength="6"
-                  value={formData.password}
-                  onChange={handleChange}
+                  // value={formData.password}
+               onChange={(e)=> setpassward(e.target.value)}
                   className="py-3 pl-10 block w-full border border-gray-300 rounded-md focus:outline-none focus:ring-orange-500 focus:border-orange-500"
                   placeholder="Create a password (min 6 characters)"
                 />
@@ -147,8 +179,8 @@ function Sign() {
                   name="confirmPassword"
                   type="password"
                   required
-                  value={formData.confirmPassword}
-                  onChange={handleChange}
+                  // value={formData.confirmPassword}
+                  // onChange={handleChange}
                   className="py-3 pl-10 block w-full border border-gray-300 rounded-md focus:outline-none focus:ring-orange-500 focus:border-orange-500"
                   placeholder="Confirm your password"
                 />
@@ -168,8 +200,8 @@ function Sign() {
                   name="address"
                   type="text"
                   required
-                  value={formData.address}
-                  onChange={handleChange}
+                  // value={formData.address}
+                  // onChange={handleChange}
                   className="py-3 pl-10 block w-full border border-gray-300 rounded-md focus:outline-none focus:ring-orange-500 focus:border-orange-500"
                   placeholder="Enter your delivery address"
                 />
@@ -183,8 +215,8 @@ function Sign() {
                   name="terms"
                   type="checkbox"
                   required
-                  checked={acceptTerms}
-                  onChange={(e) => setAcceptTerms(e.target.checked)}
+                  // checked={acceptTerms}
+                  // onChange={(e) => setAcceptTerms(e.target.checked)}
                   className="focus:ring-orange-500 h-4 w-4 text-orange-600 border-gray-300 rounded"
                 />
               </div>
@@ -195,7 +227,7 @@ function Sign() {
                     Terms of Service
                   </a>{' '}
                   and{' '}
-                  <a href="#" className="text-orange-600 hover:text-orange-500">
+                  <a href="#" className="text-orange-600 hover:text-orange-500 ">
                     Privacy Policy
                   </a>
                 </label>
@@ -204,8 +236,9 @@ function Sign() {
 
             <div>
               <button
+              onClick={signup}
                 type="submit"
-                className="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-orange-600 hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500"
+                className="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-orange-600 hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 cursor-pointer "
               >
                 CREATE ACCOUNT
               </button>
@@ -215,7 +248,7 @@ function Sign() {
           <div className="mt-6 text-center">
             <p className="text-sm text-gray-600">
               Already have an account?{' '}
-              <a  onClick={()=> navigate("/login")} className="font-medium text-orange-600 hover:text-orange-500">
+              <a  onClick={()=> navigate("/login")} className="font-medium text-orange-600 hover:text-orange-500 cursor-pointer   ">
                Login
               </a>
             </p>

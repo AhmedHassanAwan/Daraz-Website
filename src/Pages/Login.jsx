@@ -5,19 +5,54 @@
 import React, { useState } from 'react';
 import { FaUser, FaLock, FaFacebook, FaGoogle, FaApple } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
+import {  signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from '../../Config.js';
 
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
-
+  
   const navigate = useNavigate()
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Handle login logic here
-    console.log({ email, password, rememberMe });
-  };
+
+
+
+  function Login(e) {
+    e.preventDefault()
+    console.log(email);
+    console.log(password);
+
+    signInWithEmailAndPassword(auth, email, password)
+  .then((userCredential) => {
+    // Signed in 
+    const user = userCredential.user;
+    console.log(user);
+
+    navigate('/checkout')
+
+    alert("Login SucessFull")
+    
+    // ...
+  })
+  .catch((error) => {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    console.log(errorMessage);
+    
+  });
+
+    
+    
+    
+  }
+
+
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   // Handle login logic here
+  //   console.log({ email, password, rememberMe });
+  // };
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
@@ -37,7 +72,7 @@ function Login() {
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
         <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
-          <form className="space-y-6" onSubmit={handleSubmit}>
+          <form className="space-y-6">
             <div>
               <label htmlFor="email" className="block text-sm font-medium text-gray-700">
                 Email or Phone Number
@@ -88,8 +123,8 @@ function Login() {
                   id="remember-me"
                   name="remember-me"
                   type="checkbox"
-                  checked={rememberMe}
-                  onChange={(e) => setRememberMe(e.target.checked)}
+                  // checked={rememberMe}
+                  // onChange={(e) => setRememberMe(e.target.checked)}
                   className="h-4 w-4 text-orange-600 focus:ring-orange-500 border-gray-300 rounded"
                 />
                 <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-900">
@@ -106,6 +141,7 @@ function Login() {
 
             <div>
               <button
+              onClick={Login}
                 type="submit"
                 className="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-orange-600 hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500"
               >
