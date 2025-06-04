@@ -81,7 +81,7 @@ Myswal.fire({
 
 //handlePlaceOrder
 
-function handlePlaceOrder(params) {
+function handlePlaceOrder() {
 
 Swal.fire({
   title: "Order Placed Successfully!",

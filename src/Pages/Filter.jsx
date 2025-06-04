@@ -8,13 +8,18 @@ import { FaShoppingCart } from "react-icons/fa";
 import { ProductsContext } from '../../Context/Context'
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
+import { useNavigate } from 'react-router-dom';
+
+
 
 const MySwal = withReactContent(Swal);
 function Filter() {
 
     const {filterdata} = useContext(ProductsContext)
     console.log(filterdata);
-      const {cartItems, setCartItems} = useContext(ProductsContext);
+    const {cartItems, setCartItems} = useContext(ProductsContext);
+    const navigate = useNavigate()
+
 
       function handleAddToCart(item) {
   // Check if item already exists in cart
@@ -42,26 +47,22 @@ function Filter() {
     showConfirmButton: false,
   });
 }
-    
+    function buynow() {
+  console.log("hellwo ");
+
+  navigate("/checkout")
+  
+}
   return (
     <>
 
-    
-    {/* <img    className="w-full h-48 sm:h-70 md:h-80 lg:h-100 "src="https://blog.daraz.pk/wp-content/uploads/2022/10/11.11-KV-1024x418.jpg"  alt="" /><br /><br /> */}
 
 
-    <img    className="w-full h-48 sm:h-70 md:h-80 lg:h-100 "src="https://blog.daraz.pk/wp-content/uploads/2022/12/12-12-KV-1-1024x585.jpg"  alt="" /><br /><br />
+
+    <img className="w-full h-48 sm:h-70 md:h-80 lg:h-100 "src="https://blog.daraz.pk/wp-content/uploads/2022/12/12-12-KV-1-1024x585.jpg"  alt="" /><br /><br />
 
 
-  {/* {filterdata && filterdata.products && filterdata.products.map((item) => {
-  return (
-    <div key={item.id}>
-      <h3>{item.title}</h3>
-      <img src={item.thumbnail} alt={item.title} width="100" />
-      <p>{item.price} $</p>
-    </div>
-  );
-})} */}
+
 
 <div className="container mx-auto px-4 py-6">
   {filterdata &&
@@ -123,12 +124,15 @@ function Filter() {
               <button   onClick={()=> handleAddToCart(items)}    className="flex-1 flex items-center justify-center bg-orange-500 text-white text-sm px-3 py-2 rounded-md hover:bg-orange-600 transition">
                 <FaShoppingCart className="mr-1" /> Add to Cart
               </button>
-              <button
+              {/* <button
                 onClick={() => navigate(`/products/${items.id}`)}
                 className="flex-1 border border-orange-500 text-orange-500 text-sm px-3 py-2 rounded-md hover:bg-orange-100 transition"
               >
                 See More
-              </button>
+              </button> */}
+                <button onClick={buynow} className="flex-1 bg-red-500 hover:bg-red-600 text-white py-3 px-4 rounded-md font-medium">
+                    Buy Now
+                  </button>
             </div>
           </div>
         </div>

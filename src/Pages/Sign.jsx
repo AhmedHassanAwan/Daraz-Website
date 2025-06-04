@@ -21,7 +21,8 @@ function Sign() {
   const navigate = useNavigate()
 
 
-  function signup() {
+  function signup(e) {
+    e.preventDefault()
     console.log(email);
     console.log(password);
 
@@ -209,29 +210,8 @@ navigate('/Login')
             </div>
 
             <div className="flex items-start">
-              <div className="flex items-center h-5">
-                <input
-                  id="terms"
-                  name="terms"
-                  type="checkbox"
-                  required
-                  // checked={acceptTerms}
-                  // onChange={(e) => setAcceptTerms(e.target.checked)}
-                  className="focus:ring-orange-500 h-4 w-4 text-orange-600 border-gray-300 rounded"
-                />
-              </div>
-              <div className="ml-3 text-sm">
-                <label htmlFor="terms" className="font-medium text-gray-700">
-                  I agree to Daraz's{' '}
-                  <a href="#" className="text-orange-600 hover:text-orange-500">
-                    Terms of Service
-                  </a>{' '}
-                  and{' '}
-                  <a href="#" className="text-orange-600 hover:text-orange-500 ">
-                    Privacy Policy
-                  </a>
-                </label>
-              </div>
+             
+              
             </div>
 
             <div>

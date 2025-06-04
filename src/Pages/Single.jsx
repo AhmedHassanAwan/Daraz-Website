@@ -17,36 +17,8 @@ function Single() {
   const navigate = useNavigate()  
 
 
-  // addtocard
-//       function handleAddToCart(item) {
-//   // Check if item already exists in cart
-//   const existingItem = cartItems.find(cartItem => cartItem.id === item.id);
 
-//   if (existingItem) {
-//     // Agar already hai to quantity badhao
-//     const updatedCart = cartItems.map(cartItem =>
-//       cartItem.id === item.id
-//         ? { ...cartItem, quantity: (cartItem.quantity || 1) + 1 }
-//         : cartItem
-//     );
-//     setCartItems(updatedCart);
-//   } else {
-//     // Agar pehli dafa add ho raha hai to quantity 1 se start karo
-//     setCartItems([...cartItems, { ...item, quantity: 1 }]);
-//     console.log(cartItems);
-    
-//   }
-
-//   // Show SweetAlert
-//   MySwal.fire({
-//     title: 'Added to Cart! 🛒',
-//     text: `${item.title} has been added to your cart.`,
-//     icon: 'success',
-//     timer: 2000,
-//     showConfirmButton: false,
-//   });
-// }
-
+// addtocard
 function handleAddToCart(item) {
   const existingItem = cartItems.find(cartItem => cartItem.id === item.id);
 
@@ -69,22 +41,6 @@ function handleAddToCart(item) {
     showConfirmButton: false,
   });
 }
-
-  // Increase quantity
-  function handleIncrease(id) {
-    const updatecart = cartItems.map(items => 
-      items.id === id ? { ...items, quantity: items.quantity + 1} : items 
-    );
-    setCartItems(updatecart)
-  };
-
-  // Decrease quantity
-  const handleDecrease = (id) => {
-    const updatedCart = cartItems.map(item =>
-      item.id === id ? { ...item, quantity: item.quantity > 1 ? item.quantity - 1 : 1 } : item
-    );
-    setCartItems(updatedCart);
-  };
 
 //  buynow
 
@@ -117,8 +73,6 @@ function buynow() {
   <span>Error! Task failed successfully.</span>
 </div></div>;
 
-  const increaseQuantity = () => setQuantity(prev => prev + 1);
-  const decreaseQuantity = () => setQuantity(prev => (prev > 1 ? prev - 1 : 1));
 
   return (
     <div className="bg-gray-100 min-h-screen">
