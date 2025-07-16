@@ -3,6 +3,8 @@ import { useNavigate, useParams } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import { ProductsContext } from '../../Context/Context';
+ import { ToastContainer, toast } from 'react-toastify';
+ import 'react-toastify/dist/ReactToastify.css';
 
 function Single() {
   const [loading, setLoading] = useState(true);
@@ -33,13 +35,16 @@ function handleAddToCart(item) {
     setCartItems([...cartItems, { ...item, quantity }]);
   }
 
-  MySwal.fire({
-    title: 'Added to Cart! 🛒',
-    text: `${item.title} (${quantity}) added to your cart.`,
-    icon: 'success',
-    timer: 2000,
-    showConfirmButton: false,
-  });
+toast.success('Added to Cart! 🛒', {
+position: "top-center",
+autoClose: 5000,
+hideProgressBar: false,
+closeOnClick: false,
+pauseOnHover: true,
+draggable: true,
+progress: undefined,
+theme: "dark",
+});
 }
 
 //  buynow
@@ -75,10 +80,11 @@ function buynow() {
 
 
   return (
+    <>
     <div className="bg-gray-100 min-h-screen">
       {/* Top Banner */}
         <img 
-        src='https://blog.daraz.pk/wp-content/uploads/2022/10/11.11-KV-1024x418.jpg'
+        src='https://storiesflistgv2.blob.core.windows.net/stories/2020/08/StayHomeWithFlipkart_WinnerBanner_FKS.jpg'
           alt="promotional banner" 
           className="w-full h-auto max-h-120 object-cover"
         />
@@ -89,7 +95,7 @@ function buynow() {
           {/* Breadcrumbs */}
           <div className="text-sm breadcrumbs mb-4 text-gray-500">
             <ul>
-              <li>Home</li> 
+              <li>Home</li>   
               <li>Fashion</li>
               <li>Bags</li>
               <li>Shoulder Bags</li>
@@ -148,38 +154,13 @@ function buynow() {
                   </div>
                 </div>
 
-                {/* Quantity Selector */}
-                {/* <div className="mt-6">
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Quantity:</label>
-                  <div className="flex items-center">
-                    <button 
-                      className="w-10 h-10 border border-gray-300 rounded-l bg-gray-100 text-xl flex items-center justify-center"
-                      onClick={()=> decreaseQuantity(data.id)}
-                    >
-                      -
-                    </button>
-                    <div className="w-16 h-10 border-t border-b border-gray-300 flex items-center justify-center">
-                      {quantity}
-                    </div>
-                    <button 
-                      className="w-10 h-10 border border-gray-300 rounded-r bg-gray-100 text-xl flex items-center justify-center"
-                      onClick={()=> increaseQuantity(data.id)}
-                    >
-                      +
-                    </button>
-                    <span className="text-sm text-gray-500 ml-2">({data.stock} available)</span>
-                  </div>
-                </div> */}
 
                 {/* Action Buttons */}
                 <div className="mt-6 flex gap-3">
-                  <button onClick={()=> handleAddToCart(data)}   className="flex-1 bg-orange-500 hover:bg-orange-600 text-white py-3 px-4 rounded-md font-medium flex items-center justify-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
-                      <path d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z" />
-                    </svg>
+                  <button onClick={()=> handleAddToCart(data)}   className="flex-1 bg-[#f7ca00] hover:bg-orange-600 text-white py-3 px-4 rounded-md font-medium flex items-center justify-center cursor-pointer">
                     Add to Cart
                   </button>
-                  <button onClick={buynow} className="flex-1 bg-red-500 hover:bg-red-600 text-white py-3 px-4 rounded-md font-medium">
+                  <button onClick={buynow} className="flex-1 bg-red-500 hover:bg-red-600 text-white py-3 px-4 rounded-md font-medium cursor-pointer">
                     Buy Now
                   </button>
                 </div>
@@ -249,6 +230,9 @@ function buynow() {
         </div>
       </div>
     </div>
+           <ToastContainer />
+    </>
+    
   );
 }
 

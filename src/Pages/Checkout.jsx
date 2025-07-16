@@ -5,14 +5,14 @@
 import React, { useContext, useEffect } from 'react'
 import { ProductsContext } from '../../Context/Context'
 import { useNavigate } from 'react-router-dom';
-import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from '../../Config.js';
+ import { ToastContainer, toast } from 'react-toastify';
+ import 'react-toastify/dist/ReactToastify.css';
 
 
 
-const Myswal =    withReactContent(Swal)
 function Checkout() {
   const { cartItems, setCartItems } = useContext(ProductsContext)
   const navigate = useNavigate()
@@ -60,15 +60,17 @@ onAuthStateChanged(auth, (user) => {
     const updatedItems = cartItems.filter(item => item.id !== id);
     setCartItems(updatedItems);
 
-Myswal.fire({
-   title: "Deleted!",
-   text: "Cancel this order",
-  icon: "success",
-  showCancelButton: true,
-  confirmButtonColor: "#3085d6",
-  cancelButtonColor: "#d33",
-  confirmButtonText: "Yes, delete it!"
-}).then((result) => {
+toast.error('Cancel this Order', {
+position: "top-center",
+autoClose: 5000,
+hideProgressBar: false,
+closeOnClick: false,
+pauseOnHover: true,
+draggable: true,
+progress: undefined,
+theme: "dark",
+})
+.then((result) => {
   if (result.isConfirmed) {
     Swal.fire({
       title: "Deleted!",
@@ -83,20 +85,16 @@ Myswal.fire({
 
 function handlePlaceOrder() {
 
-Swal.fire({
-  title: "Order Placed Successfully!",
-  text: "Thank you for shopping with us. Your order is on the way 🚚",
-  icon: "success",
-  width: 500,
-  padding: "2em",
-  color: "#333", // dark gray text
-  background: "#fefefe", // soft white background
-  backdrop: `
-    rgba(0,0,0,0.3)
-    url("https://i.gifer.com/ZZ5H.gif")  // optional loading gif
-    center left
-    no-repeat
-  `
+
+  toast.success('Order Placed Successfully!  ', {
+position: "top-center",
+autoClose: 5000,
+hideProgressBar: false,
+closeOnClick: false,
+pauseOnHover: true,
+draggable: true,
+progress: undefined,
+theme: "dark",
 });
 
 
@@ -107,7 +105,7 @@ Swal.fire({
   return (
     <>
       {/* Daraz-style orange header */}
-      <div className="bg-orange-500 py-2 px-4 text-white">
+      <div className="bg-[#2a55e5] py-2 px-4 text-white">
         <div className="max-w-screen-xl mx-auto">
           <h1 className="text-xl font-bold">Checkout</h1>
         </div>
@@ -127,7 +125,7 @@ Swal.fire({
                     <p className="text-gray-500">Your cart is empty</p>
                     <button 
                       onClick={() => navigate('/')}
-                      className="mt-4 bg-orange-500 text-white px-4 py-2 rounded hover:bg-orange-600"
+                      className="mt-4 bg-[#2a55e5] text-white px-4 py-2 rounded hover:bg-orange-600"
                     >
                       Continue Shopping
                     </button>
@@ -148,7 +146,7 @@ Swal.fire({
                           <p className="text-sm text-gray-500">{item.brand}</p>
                           
                           <div className="flex items-center mt-2">
-                            <span className="text-orange-500 font-bold">Rs. {(item.price * item.quantity).toFixed(2)}</span>
+                            <span className="text-[#2a55e5] font-bold">Rs. {(item.price * item.quantity).toFixed(2)}</span>
                            
                           </div>
                           
@@ -172,7 +170,7 @@ Swal.fire({
                         </div>
                         <button 
                           onClick={() => deletebtn(item.id)}
-                          className="text-gray-400 hover:text-red-500 cursor-pointer"
+                          className="text-gray-400 hover:text-[#2a55e5] cursor-pointer"
                         >
                           <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                             <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
@@ -208,7 +206,7 @@ Swal.fire({
                   
                   <div className="border-t pt-3 mt-3 flex justify-between">
                     <span className="font-semibold">Total:</span>
-                    <span className="text-orange-500 font-bold text-lg">Rs. {total.toFixed(2)}</span>
+                    <span className="text-[#2a55e5] font-bold text-lg">Rs. {total.toFixed(2)}</span>
                   </div>
                 </div>
 
@@ -219,7 +217,7 @@ Swal.fire({
                   className={`w-full mt-6 py-3 rounded font-medium cursor-pointer  ${
                     cartItems.length === 0 
                       ? 'bg-gray-300 cursor-not-allowed' 
-                      : 'bg-orange-500 hover:bg-orange-600 text-white'
+                      : 'bg-[#2a55e5] hover:bg-[#2a55e5] text-white'
                   }`}
                 >
                   Place Order
@@ -228,7 +226,7 @@ Swal.fire({
                 <div className="mt-4 text-center">
                   <button 
                     onClick={() => navigate('/')}
-                    className="text-orange-500 hover:underline"
+                    className="text-[#2a55e5] hover:underline"
                   >
                     Continue Shopping
                   </button>
@@ -238,6 +236,7 @@ Swal.fire({
           </div>
         </div>
       </section>
+       <ToastContainer />
     </>
   )
 }

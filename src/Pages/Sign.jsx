@@ -3,6 +3,8 @@ import { FaUser, FaEnvelope, FaLock, FaPhone, FaMapMarkerAlt } from 'react-icons
 import { useNavigate } from 'react-router-dom';
 import {  createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from '../../Config.js';
+ import { ToastContainer, toast } from 'react-toastify';
+ import 'react-toastify/dist/ReactToastify.css';
 
 
 function Sign() {
@@ -26,52 +28,53 @@ function Sign() {
     console.log(email);
     console.log(password);
 
-    createUserWithEmailAndPassword(auth, email, password)
+createUserWithEmailAndPassword(auth, email, password)
   .then((userCredential) => {
-    // Signed up 
     const user = userCredential.user;
     console.log(user);
-navigate('/Login')
-    alert("Sign UP sucessfull")
-    
-    // ...
+
+    toast.success('Sign up Successfully 🎉', {
+      position: 'top-center',
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      theme: 'dark',
+    });
+
+    setTimeout(() => {
+      navigate('/Login');
+    }, 2000);
   })
   .catch((error) => {
     const errorMessage = error.message;
-    console.log(errorMessage);
-    alert(errorMessage)
-    
+    toast.error(errorMessage, {
+      position: 'top-center',
+      autoClose: 3000,
+      theme: 'colored',
+    });
   });
+
 
     
     
     
   }
 
-  // const handleChange = (e) => {
-  //   const { name, value } = e.target;
-  //   setFormData(prev => ({
-  //     ...prev,
-  //     [name]: value
-  //   }));
-  // };
 
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   // Handle registration logic here
-  //   console.log({ ...formData, acceptTerms });
-  // };
 
   return (
+    <>
     <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <img 
-          className="mx-auto h-12 w-auto  bg-orange-600 " 
-            src="https://lzd-img-global.slatic.net/us/domino/3b870cb043c7f8a9741cbf66329e294e.png"
-          alt="Daraz Logo"
+          className="mx-auto h-12 w-auto  " 
+            src="https://static-assets-web.flixcart.com/batman-returns/batman-returns/p/images/fkheaderlogo_exploreplus-44005d.svg"
+          alt="Flipkart Logo"
         />
         <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-          Create Your Daraz Account
+          Create Your Flipkart Account
         </h2>
         <p className="mt-2 text-center text-sm text-gray-600">
           Join Daraz to enjoy faster checkout and exclusive deals
@@ -94,9 +97,7 @@ navigate('/Login')
                   name="name"
                   type="text"
                   required
-                  // value={formData.name}
-                  // onChange={handleChange}
-                  className="py-3 pl-10 block w-full border border-gray-300 rounded-md focus:outline-none focus:ring-orange-500 focus:border-orange-500"
+                  className="py-3 pl-10 block w-full border border-gray-300 rounded-md focus:outline-none focus:ring-[#2a55e5] focus:border-[#2a55e5]"
                   placeholder="Enter your full name"
                 />
               </div>
@@ -118,7 +119,7 @@ navigate('/Login')
                   autoComplete="email"
                   required
                   onChange={(e)=> setemail(e.target.value) }
-                  className="py-3 pl-10 block w-full border border-gray-300 rounded-md focus:outline-none focus:ring-orange-500 focus:border-orange-500"
+                  className="py-3 pl-10 block w-full border border-gray-300 rounded-md focus:outline-none focus:ring-orange-500 focus:border-[#2a55e5]"
                   placeholder="Enter your email"
                 />
               </div>
@@ -139,7 +140,7 @@ navigate('/Login')
                   required
                   // value={formData.phone}
                   // onChange={handleChange}
-                  className="py-3 pl-10 block w-full border border-gray-300 rounded-md focus:outline-none focus:ring-orange-500 focus:border-orange-500"
+                  className="py-3 pl-10 block w-full border border-gray-300 rounded-md focus:outline-none focus:ring-orange-500 focus:border-[#2a55e5]"
                   placeholder="Enter your phone number"
                 />
               </div>
@@ -161,7 +162,7 @@ navigate('/Login')
                   minLength="6"
                   // value={formData.password}
                onChange={(e)=> setpassward(e.target.value)}
-                  className="py-3 pl-10 block w-full border border-gray-300 rounded-md focus:outline-none focus:ring-orange-500 focus:border-orange-500"
+                  className="py-3 pl-10 block w-full border border-gray-300 rounded-md focus:outline-none focus:ring-orange-500 focus:border-[#2a55e5]"
                   placeholder="Create a password (min 6 characters)"
                 />
               </div>
@@ -182,7 +183,7 @@ navigate('/Login')
                   required
                   // value={formData.confirmPassword}
                   // onChange={handleChange}
-                  className="py-3 pl-10 block w-full border border-gray-300 rounded-md focus:outline-none focus:ring-orange-500 focus:border-orange-500"
+                  className="py-3 pl-10 block w-full border border-gray-300 rounded-md focus:outline-none focus:ring-orange-500 focus:border-[#2a55e5]"
                   placeholder="Confirm your password"
                 />
               </div>
@@ -203,7 +204,7 @@ navigate('/Login')
                   required
                   // value={formData.address}
                   // onChange={handleChange}
-                  className="py-3 pl-10 block w-full border border-gray-300 rounded-md focus:outline-none focus:ring-orange-500 focus:border-orange-500"
+                  className="py-3 pl-10 block w-full border border-gray-300 rounded-md focus:outline-none focus:ring-orange-500 focus:border-[#2a55e5]"
                   placeholder="Enter your delivery address"
                 />
               </div>
@@ -218,7 +219,7 @@ navigate('/Login')
               <button
               onClick={signup}
                 type="submit"
-                className="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-orange-600 hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 cursor-pointer "
+                className="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-[#2a55e5] hover:bg-[#2a55e5] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#2a55e5] cursor-pointer "
               >
                 CREATE ACCOUNT
               </button>
@@ -228,7 +229,7 @@ navigate('/Login')
           <div className="mt-6 text-center">
             <p className="text-sm text-gray-600">
               Already have an account?{' '}
-              <a  onClick={()=> navigate("/login")} className="font-medium text-orange-600 hover:text-orange-500 cursor-pointer   ">
+              <a  onClick={()=> navigate("/login")} className="font-medium text-[#2a55e5] hover:text-[#2a55e5] cursor-pointer   ">
                Login
               </a>
             </p>
@@ -236,6 +237,8 @@ navigate('/Login')
         </div>
       </div>
     </div>
+           <ToastContainer />
+    </>
   );
 }
 

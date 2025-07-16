@@ -9,6 +9,8 @@ import { ProductsContext } from '../../Context/Context'
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import { useNavigate } from 'react-router-dom';
+ import { ToastContainer, toast } from 'react-toastify';
+ import 'react-toastify/dist/ReactToastify.css';
 
 
 
@@ -38,14 +40,16 @@ function Filter() {
     setCartItems([...cartItems, { ...item, quantity: 1 }]);
   }
 
-  // Show SweetAlert
-  MySwal.fire({
-    title: 'Added to Cart! 🛒',
-    text: `${item.title} has been added to your cart.`,
-    icon: 'success',
-    timer: 2000,
-    showConfirmButton: false,
-  });
+toast.success('Added to Cart! 🛒', {
+position: "top-center",
+autoClose: 5000,
+hideProgressBar: false,
+closeOnClick: false,
+pauseOnHover: true,
+draggable: true,
+progress: undefined,
+theme: "dark",
+});
 }
     function buynow() {
   console.log("hellwo ");
@@ -59,7 +63,7 @@ function Filter() {
 
 
 
-    <img className="w-full h-48 sm:h-70 md:h-80 lg:h-100 "src="https://blog.daraz.pk/wp-content/uploads/2022/12/12-12-KV-1-1024x585.jpg"  alt="" /><br /><br />
+    <img className="w-full h-48 sm:h-70 md:h-80 lg:h-100 "src="https://storiesflistgv2.blob.core.windows.net/stories/2021/05/FKSfooterbanner_new__.jpg"  alt="" /><br /><br />
 
 
 
@@ -121,15 +125,9 @@ function Filter() {
             </div>
 
             <div className="mt-4 flex flex-col sm:flex-row gap-2">
-              <button   onClick={()=> handleAddToCart(items)}    className="flex-1 flex items-center justify-center bg-orange-500 text-white text-sm px-3 py-2 rounded-md hover:bg-orange-600 transition">
-                <FaShoppingCart className="mr-1" /> Add to Cart
+              <button   onClick={()=> handleAddToCart(items)}    className="flex-1 flex items-center justify-center bg-[#f7ca00]  text-white text-sm px-3 py-2 rounded-md hover:bg-orange-600 transition">
+                Add to Cart
               </button>
-              {/* <button
-                onClick={() => navigate(`/products/${items.id}`)}
-                className="flex-1 border border-orange-500 text-orange-500 text-sm px-3 py-2 rounded-md hover:bg-orange-100 transition"
-              >
-                See More
-              </button> */}
                 <button onClick={buynow} className="flex-1 bg-red-500 hover:bg-red-600 text-white py-3 px-4 rounded-md font-medium">
                     Buy Now
                   </button>
@@ -144,6 +142,8 @@ function Filter() {
     </div>
   )}
 </div>
+
+ <ToastContainer />
 
 
 
